@@ -17,177 +17,184 @@
 </head>
 
 <body id="body">
-        <!-- MAIN PAGE -->
-        <div class="top_container">
-            <div class="logo_container">
-                <a href="/korok_hunt/">
-                <img src="/korok_hunt/img/korok_hunt_logo.png" alt="Korok Hunt Logo">
-                </a>
-            </div>
-
-            <div class="l_container">
-                <iframe id="map_frame" src="https://www.google.com/maps/d/embed?mid=1PCWi8uGhv-XZT9FsprEzyuqBZYq-l9s&ehbc=2E312F" 
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map_frame">
-                </iframe>
-            </div>
-        </div>
-        <br>
-        <br>
-
-        <div id="about" class="text_container">
-            <div class="t_paragraph"><u>WHAT IS THIS?</u></div> <br>
-            <div class="b_paragraph">
-                Find the Koroks hidden all over campus! Each Korok has a QR code to scan, which will increment your score. <br>
-                Compete against your fellow students to find the most Koroks!
-                <br><br>
-                All Koroks will be found outside, and within the bounds shown above.
-                Don't go searching anywhere you shouldn't be; we probably didn't place any Koroks there :)
-                <br><br>
-                The top three players by the end of <u>October 27, 2024</u> will win 
-                <u><a target="_blank" rel="noopener noreferrer"href="/korok_hunt/img/top_3_prize.png">a korok plush</a></u>!
-                <br><br>
-                The Korok Hunt is now over, but feel free to still search around for Koroks!
-                <br><br>
-                We also have a
-                <u><a target="_blank" rel="noopener noreferrer"href="https://discord.gg/A79Au6BcsJ">discord server</a></u>!
-                <br><br>
-            </div>
-        </div>
-        <br><br><br><br>
-        
-        <div id="leaderboard_button" class="leaderboard_button">
-            <a href="/korok_hunt/leaderboard/" class="center">
-            <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
+    <!-- MAIN PAGE -->
+    <div class="top_container">
+        <div class="logo_container">
+            <a href="/korok_hunt/">
+            <img src="/korok_hunt/img/korok_hunt_logo.png" alt="Korok Hunt Logo">
             </a>
         </div>
-        <br><br><br><br>
 
-        <div id="cheating_notice" class="text_container">
-            <div class="t_paragraph"><u>CHEATING NOTICE</u></div> <br>
-            <div class="b_paragraph">
-                Don't ruin the fun for everyone else. <br>
-                Removing or moving Koroks from their original location, as well as scanning Koroks that have been removed will result in disqualification.
-                <br><br>
+        <div class="l_container">
+            <iframe id="map_frame" src="https://www.google.com/maps/d/embed?mid=1sQ9IUtx9Tl_KdBbNlgUKyGP-l8e0GK8&ehbc=2E312F&noprof=1&z=17"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map_frame">
+            </iframe>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div id="about" class="text_container">
+        <div class="t_paragraph"><u>What Is This?</u></div> <br>
+        <div class="b_paragraph">
+            Find the Koroks hidden all over campus! Each Korok has a QR code to scan, which will increment your score. 
+            <br>
+            Compete against your fellow students to find the most Koroks!
+            <br><br>
+            All Koroks will be found outside, and within the bounds shown above.
+            Don't go searching anywhere you shouldn't be; Koroks probably aren't hiding there.
+            <br><br>
+            The top three players by the end of <u>???</u> will win 
+            <u><a target="_blank" rel="noopener noreferrer"href="/korok_hunt/img/top_3_prize.png">???</a></u>!
+            <br><br>
+            We also have a
+            <u><a target="_blank" rel="noopener noreferrer"href="https://discord.gg/A79Au6BcsJ">discord server</a></u>!
+            <br><br>
+        </div>
+    </div>
+    <br><br><br><br>
+
+    <div id="new" class="text_container">
+        <div class="t_paragraph"><u>What's New?</u></div> <br>
+        <div class="b_paragraph">
+            This is the second Korok Hunt!
+            As such, there are some small changes from last year:
+            <br>
+            - The Koroks will be released in waves of 20-30 every few weeks
+            - Each batch of released Koroks will be in a particular area of campus
+        </div>
+    </div>
+    <br><br><br><br>
+    
+    <div id="leaderboard_button" class="leaderboard_button">
+        <a href="/korok_hunt/leaderboard/" class="center">
+        <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
+        </a>
+    </div>
+    <br><br><br><br>
+
+    <div id="cheating_notice" class="text_container">
+        <div class="t_paragraph"><u>Cheating Notice</u></div> <br>
+        <div class="b_paragraph">
+            Don't ruin the fun for everyone else. <br>
+            Removing or moving Koroks from their original location, as well as scanning Koroks that have been removed will result in disqualification.
+            <br><br>
+        </div>
+    </div>
+    <br><br><br>
+
+    <div class="bottom_paragraph">
+        Made by an RPI student, for RPI students.<br>
+        Not endorsed or sponsored by Rensselaer Polytechnic Institute.<br>
+        The code for this website can be found <a target="_blank" rel="noopener noreferrer" href="https://github.com/joshschnauber/Korok_Hunt_Website" target="_blank" rel="noopener noreferrer">here.</a>
+    </div>
+    <br>
+
+
+    <!-- USER INFO DISPLAY -->
+    <div id="user_display" class="user_display">
+        <username>???</username>:
+        <count>0</count>
+    </div>
+
+
+    <!-- KOROK FOUND POPUP -->
+    <div id="kf_popup" class="align_popup info_popup">
+
+        <div class="korok_image_div">
+            <korok_number class="korok_popup_text upper_right_float_text">#000</korok_number>
+            <img id="korok_img" src="/korok_hunt/img/unknown.svg" alt="Yahaha! You found me!" class="center">
+        </div>
+        
+        <div class="korok_popup_text">
+            <div>
+                <found>Yahaha! You found me!</found><br>
+                You've found <count>-1 Koroks</count>!
+            </div>
+            <div class="korok_popup_prev">
+                <prev_found>-1</prev_found> found this Korok.
             </div>
         </div>
-        <br><br><br>
 
-        <div class="bottom_paragraph">
-            Made by an RPI student, for RPI students.<br>
-            Not endorsed or sponsored by Rensselaer Polytechnic Institute.<br>
-            The code for this website can be found <a target="_blank" rel="noopener noreferrer" href="https://github.com/joosh119/Korok_Hunt_Website" target="_blank" rel="noopener noreferrer">here.</a>
+        <div class="popup_button_container">
+            <button class="popup_button center">
+                <b_found>Awesome!<b_found>
+            </button>
+        </div>
+    </div>
+
+    <!-- UNKNOWN KOROK POPUP -->
+    <div id="uk_popup" class="align_popup info_popup">
+
+        <img id="korok_img" src="/korok_hunt/img/unknown.svg" alt="Nohoho! You didn't find me!" class="center">
+        
+        <div class="korok_popup_text">
+            This is not a valid Korok.<br>
+            Scan a valid QR code to find Koroks!
         </div>
         <br>
+        <div class="popup_button_container">
+            <button class="popup_button center"> 
+                Ok
+            </button>
+            <button id="admin_button" class="center">
+                admin
+            </button>
+        </div>
+    </div>
 
+    <!-- USERNAME POPUP -->
+    <div id="u_popup" class="align_popup input_popup">
 
-        <!-- USER INFO DISPLAY -->
-        <div id="user_display" class="user_display">
-            <username>???</username>:
-            <count>0</count>
+        <div class="center">
+            <x class="input_popup_text input_text_area_label">Email &nbsp</x>
+            <textarea id="email_input" class="input_text_area" rows="1" cols="15" maxlength="32"></textarea>
+        </div>
+        
+        <div class="input_popup_text">
+            This email will only be used to contact you if you win.
         </div>
 
-
-        <!-- KOROK FOUND POPUP -->
-        <div id="kf_popup" class="align_popup info_popup">
-
-            <div class="korok_image_div">
-                <korok_number class="korok_popup_text upper_right_float_text">#000</korok_number>
-                <img id="korok_img" src="/korok_hunt/img/unknown.svg" alt="Yahaha! You found me!" class="center">
-            </div>
-            
-            <div class="korok_popup_text">
-                <div>
-                    <found>Yahaha! You found me!</found><br>
-                    You've found <count>-1 Koroks</count>!
-                </div>
-                <div class="korok_popup_prev">
-                    <prev_found>-1</prev_found> found this Korok.
-                </div>
-            </div>
-
-            <div class="popup_button_container">
-                <button class="popup_button center">
-                    <b_found>Awesome!<b_found>
-                </button>
-            </div>
+        <div class="top_text_padding center">
+            <x class="input_popup_text input_text_area_label">Username &nbsp</x>
+            <textarea id="username_input" class="input_text_area" rows="1" cols="14" maxlength="32"></textarea>
+        </div>
+        <div class="input_popup_text">
+            This username will be displayed on the leaderbord.
         </div>
 
-        <!-- UNKNOWN KOROK POPUP -->
-        <div id="uk_popup" class="align_popup info_popup">
-
-            <img id="korok_img" src="/korok_hunt/img/unknown.svg" alt="Nohoho! You didn't find me!" class="center">
-            
-            <div class="korok_popup_text">
-                This is not a valid Korok.<br>
-                Scan a valid QR code to find Koroks!
-            </div>
-            <br>
-            <div class="popup_button_container">
-                <button class="popup_button center"> 
-                    Ok
-                </button>
-                <button id="admin_button" class="center">
-                    admin
-                </button>
-            </div>
+        <div id="invalid_name" class="input_popup_error">
+            Try a different email
         </div>
 
-        <!-- USERNAME POPUP -->
-        <div id="u_popup" class="align_popup input_popup">
+        <div class="popup_button_container">
+            <button class="popup_button center">
+                Create Account/Sign in
+            </button>
+        </div>
+    </div>
 
-            <div class="center">
-                <x class="input_popup_text input_text_area_label">Email &nbsp</x>
-                <textarea id="email_input" class="input_text_area" rows="1" cols="15" maxlength="32"></textarea>
-            </div>
-            
-            <div class="input_popup_text">
-                This email will only be used to contact you if you win.
-            </div>
-
-            <div class="top_text_padding center">
-                <x class="input_popup_text input_text_area_label">Username &nbsp</x>
-                <textarea id="username_input" class="input_text_area" rows="1" cols="14" maxlength="32"></textarea>
-            </div>
-            <div class="input_popup_text">
-                This username will be displayed on the leaderbord.
-            </div>
-
-            <div id="invalid_name" class="input_popup_error">
-                Try a different email
-            </div>
-
-            <div class="popup_button_container">
-                <button class="popup_button center">
-                    Create Account/Sign in
-                </button>
-            </div>
+    <!-- INFO POPUP -->
+    <div  id="i_popup" class="align_popup info_popup">
+        <div class="popup_title_text center">
+            The RPI Korok Hunt <br><u style="color: rgb(181,0,0);"> is now over </u> <br>
         </div>
 
-        <!-- INFO POPUP -->
-        <div  id="i_popup" class="align_popup info_popup">
-            <div class="popup_title_text center">
-                The RPI Korok Hunt <br><u style="color: rgb(181,0,0);"> is now over </u> <br>
-            </div>
-
-            <div class="info_popup_text">
-                The RPI Korok Hunt is a campus-wide Korok hunting event! <br>
-                Search across RPI for hidden Koroks! Scan their QR codes in order to increment your score.
-                Compete against other RPI students to find the most!<br>
-            </div>
-
-            <div class="info_popup_text top_text_padding">
-                The Korok Hunt is over, but feel free to continue searching for Koroks!
-            </div>
-
-            <div class="popup_button_container">
-                <button class="popup_button popup_text center">
-                    Let's get started!
-                </button>
-            </div>
+        <div class="info_popup_text">
+            The RPI Korok Hunt is a campus-wide Korok hunting event! <br>
+            Search across RPI for hidden Korok stickers! Scan their QR codes in order to increment your score.
+            Compete against other RPI students to find the most!<br>
         </div>
-    
 
-        <script type="module" src="/korok_hunt/index.js"></script>
+        <div class="popup_button_container">
+            <button class="popup_button popup_text center">
+                Let's get started!
+            </button>
+        </div>
+    </div>
+
+
+    <script type="module" src="/korok_hunt/index.js"></script>
 </body>
 </html>
 

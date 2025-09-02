@@ -3,6 +3,14 @@
     font-family: 'Hylia Serif Beta';
     src: url('/korok_hunt/fonts/HyliaSerifBeta-Regular.ttf');
 }
+@font-face {
+    font-family: 'Calamity Sans';
+    src: url('/korok_hunt/fonts/Calamity-Regular.otf');
+}
+@font-face {
+    font-family: 'Calamity Sans Bold';
+    src: url('/korok_hunt/fonts/Calamity-Bold.otf');
+}
 
 
 
@@ -36,7 +44,7 @@
 
     /* Text */
 .b_paragraph {
-    font-family: Hylia Serif Beta;
+    font-family: Calamity Sans;
     color: rgb(122, 81, 0);
     text-shadow: 0 0 5px rgba(115, 58, 17, .35);
 
@@ -46,6 +54,7 @@
     width: 95%;
 
     font-size: calc(92px - 4vw);
+    line-height: 1.5em;
 }
 
 .t_paragraph {
@@ -61,7 +70,7 @@
 }
 
 .bottom_paragraph {
-    font-family: Hylia Serif Beta;
+    font-family: Calamity Sans;
     color: rgb(121, 100, 72);
     text-shadow: 0 0 5px rgb(115, 58, 17, .5);
 
@@ -70,6 +79,7 @@
     margin-right: auto;
 
     font-size: 18pt;
+    line-height: 1.25em;
 }
 
     /* Images */
@@ -384,10 +394,11 @@
     background-color: rgb(211, 154, 61);
     border-radius: 2vh;
 
-    font-family: Hylia Serif Beta;
+    font-family: Calamity Sans Bold;
     color: rgb(122, 81, 0);
     text-shadow: 0 0 5px rgba(115, 58, 17, .35);
     font-size: 2vw;
+    line-height: 1.25em;
 }
 
 .leaderboard_container username{

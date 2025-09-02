@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', _ => {
 });
 
 // START
-window.onload = async function initialize(){    
+window.onload = async function initialize() {    
     // Check the korok from the query parameters
     await checkKorok();
 
@@ -25,18 +25,18 @@ window.onload = async function initialize(){
 
 
 // USER MANAGEMENT
-async function getEmail(){
-    // check if cookie exists
+async function getEmail() {
+    // Check if cookie exists
     let email = getCookie("email");
-    if(email == ""){
-        //Request username popup underneath
+    if (email == "") {
+        // Request username popup underneath
         email = await requestEmail();
     }
 
     return email;
 }
 
-async function requestEmail(){
+async function requestEmail() {
     // Never used site before, show explanation
     infoPopup();
     
@@ -54,29 +54,29 @@ async function requestEmail(){
         username =  textareas[1].value;
 
         // If the username was invalid
-        try{
-            if(email == "" || username == "")
+        try {
+            if (email == "" || username == "")
                 throw new Error("Neither field can be empty")
 
-            if(!email.includes('@') || !email.includes('.'))
+            if (!email.includes('@') || !email.includes('.'))
                 throw new Error("This email is invalid");
                 
-            if(email.length > 32  ||  username.length > 32)
+            if (email.length > 32  ||  username.length > 32)
                 throw new Error("The email or username is too long");
 
-            if(!await createUser(email, username))
+            if (!await createUser(email, username))
                 throw new Error("Error: try again or try a different email");
 
             button_pressed = true;
         }
-        catch(err){
+        catch(err) {
             document.getElementById("invalid_name").style.visibility = "visible";
             document.getElementById("invalid_name").textContent = err.message;
         }
     };
 
 
-    while(!button_pressed){
+    while (!button_pressed) {
         await new Promise(r => setTimeout(r, 100));
     }
 
@@ -94,50 +94,59 @@ async function requestEmail(){
 // KOROK MANAGEMENT
 // Check if korok with the id exists
 let scanned_korok_id;
-async function checkKorok(){
+let scanned_korok_number;
+let scanned_korok_type;
+async function checkKorok() {
     const url = new URL(window.location);
     var url_params = new URLSearchParams(url.search);
     scanned_korok_id = url_params.get("k_id");
+    scanned_korok_number = url_params.get("k_num");
+    scanned_korok_type = url_params.get("k_type");
 
     history.pushState(null, "", location.href.split("?")[0]);
         
-    //Check if there was a korok id to check
-    if(scanned_korok_id != null){
+    // Check if there was a korok id to check
+    if (scanned_korok_id != null && scanned_korok_number != null && scanned_korok_type != null) {
         // Get the email, either from a cookie or querying the user
         var email = await getEmail();
         
         // Tell server we found a korok
         const return_data = await findKorok(email, scanned_korok_id);
-        if(return_data != null){
+
+        // Check that the korok number and type match
+        const is_valid_korok = (return_data != null) && 
+                                return_data.korok_number == scanned_korok_number &&
+                                return_data.korok_type == scanned_korok_type;
+        if (is_valid_korok) {
             validKorok(return_data);
-        }
-        else{
+        } else {
             unknownKorok();
         }
     }
 }
 
 // Called if the korok scanned was valid
-async function validKorok(return_data){
+async function validKorok(return_data) {
     // Get the korok count from the saved cookie if it wasn't returned
     let korok_count;
-    if(return_data.already_found){
+    if (return_data.already_found) {
         korok_count = getCookie("korok_count");
         // If the cookie doesn't exist for some reason, check if the count was returned
-        if(korok_count == "")
+        if (korok_count == "")
             korok_count = return_data.new_korok_count;
-        if(korok_count == null)
+        if (korok_count == null)
             korok_count = "???";
         else
             setCookie("korok_count", korok_count);
     }
-    else{
+    else {
         korok_count = return_data.new_korok_count;
         setCookie("korok_count", korok_count);
     }
     
-    // Assign Korok Number
+    // Assign Korok number and type
     let korok_number = return_data.korok_number;
+    let korok_type = return_data.korok_type;
 
     // Decrement the count of other players found if this player has already found the korok
     let others_scan_count = return_data.prev_scan_count;
@@ -145,7 +154,7 @@ async function validKorok(return_data){
         others_scan_count -= 1;
 
     // Display UI
-    korokFoundPopup(korok_number, korok_count, return_data.already_found, others_scan_count);
+    korokFoundPopup(korok_number, korok_type, korok_count, return_data.already_found, others_scan_count);
 }
 
 // Called if the korok scanned was invalid
@@ -157,7 +166,7 @@ function unknownKorok(){
 
 // ADMIN KOROK MANAGEMENT
 // Attempts to check the location
-function newKorokAttempt(){
+function newKorokAttempt() {
 
     // First check location
     if (navigator.geolocation) {
@@ -170,30 +179,24 @@ function newKorokAttempt(){
 
 // Called if the location has been successfully collected. 
 // Then, checks the admin password
-async function newKorok(position){
-    if(scanned_korok_id == null){
+async function newKorok(position) {
+    if (scanned_korok_id == null) {
         alert("Korok id cannot be null.");
         return;
     }
 
-    // Get the korok number, description, and password from user
-    let korok_num = prompt("Korok number:");
-    if(korok_num == null){
-        alert("Korok number cannot be empty.");
-        return;
-    }
-        
+    // Get the korok location description and password from user
     let description = prompt("Location description:");
-    if(description == null){
+    if (description == null) {
         alert("Description cannot be empty.");
         return;
     }
 
     let admin_password = getCookie("admin_password");
-    if(admin_password == ""){
+    if (admin_password == "") {
         admin_password = prompt("Administrator Password:");
         
-        if(admin_password == null){
+        if (admin_password == null) {
             alert("Password cannot be empty.");
             return;
         }
@@ -201,11 +204,11 @@ async function newKorok(position){
     }
 
     // If the korok was successfully set, set the admin password as a cookie
-    if( await setKorok(scanned_korok_id , korok_num, description, position, admin_password) ){
+    const set_korok_success = await setKorok(scanned_korok_id, scanned_korok_number, scanned_korok_type, description, position, admin_password)
+    if (set_korok_success) {
         alert("Korok sucessfully added!");
         setCookie("admin_password", admin_password);
-    }
-    else{
+    } else {
         alert("Korok not added :(");
         deleteCookie("admin_password");
     }
@@ -215,7 +218,7 @@ async function newKorok(position){
 
 // UI
 // Loads the korok popup with the given korok number
-function korokFoundPopup(korok_num, korok_count, already_found, prev_found_count){
+function korokFoundPopup(korok_num, korok_type, korok_count, already_found, prev_found_count){
     const kf_popup = document.getElementById("kf_popup");
 
     openPopup(kf_popup);
@@ -224,30 +227,31 @@ function korokFoundPopup(korok_num, korok_count, already_found, prev_found_count
     kf_popup.getElementsByTagName("button")[0].onclick = function() { closePopup(kf_popup) };
     
     //Load correct Korok image
-    const korok_img_num = Number(korok_num) % 10;
-    document.getElementById('korok_img').src = "/korok_hunt/img/koroks/k_" + korok_img_num + ".png";
+    document.getElementById('korok_img').src = "/korok_hunt/img/koroks/k_" + korok_type + ".png";
 
     //Display if this korok has already been found
-    if(already_found){
+    if (already_found) {
         kf_popup.getElementsByTagName("found")[0].style.color = "rgb(164, 14, 14)";
         kf_popup.getElementsByTagName("found")[0].textContent = "You've already found this korok.";
         kf_popup.getElementsByTagName("b_found")[0].textContent = "Ok";
-    }
-    else
+    } else {
         kf_popup.getElementsByTagName("found")[0].style.color = "rgb(168, 212, 9)";
+    }
 
     //Set korok count
     let count_display = korok_count + " Korok";
-    if(korok_count != 1)
+    if (korok_count != 1) {
         count_display += "s";
+    }
     kf_popup.getElementsByTagName('count')[0].textContent = count_display;
 
     //Set prev found count
     let prev_found_display = prev_found_count + " other player";
-    if(prev_found_count != 1)
+    if (prev_found_count != 1) {
         prev_found_display += "s have";
-    else
+    } else {
         prev_found_display += " has";
+    }
 
     kf_popup.getElementsByTagName('prev_found')[0].textContent = prev_found_display;
 
