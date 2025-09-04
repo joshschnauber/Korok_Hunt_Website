@@ -20,13 +20,6 @@ window.onload = async function initialize() {
 
     // Display the user's name and korok count in the corner
     displayUserInfo();
-
-
-    // TODO: Remove
-    displayInfoPopup()
-    //displayKorokFoundPopup(1, 4, 2, false, 2);
-    //displayUnknownKorokPopup();
-    //displayUsernamePopup()
 }
 
 

@@ -473,13 +473,24 @@
     line-height: 1.25em;
 }
 
-.leaderboard_container username{
+.leaderboard_container rank {
+    font-family: Hylia Serif Beta;
+}
+
+.leaderboard_container username {
     padding-left: 1vw;
     padding-right: 2vw;
     text-wrap: wrap;
 }
 
-.leaderboard_container count{
+.leaderboard_container last_active {
+    font-family: Calamity Sans;
+    color: rgb(133, 98, 29);
+    text-shadow: none;
+    font-size: 1.5vw;
+}
+
+.leaderboard_container count {
     margin-left: auto;
     width: auto;
     text-wrap: nowrap;

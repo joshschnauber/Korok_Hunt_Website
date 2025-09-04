@@ -12,7 +12,6 @@ window.onload = function initialize(){
 async function populateLeaderboard() {
     // Get all user scores
     let user_scores = await findUserScores();
-    console.log(user_scores)
     if (user_scores == null) {
         console.error("User scores could not be retrieved");
         return;
@@ -87,9 +86,16 @@ function displayUserScores(user_scores) {
         new_leaderboard_element.getElementsByTagName("rank")[0].textContent = i+1 + '.';
         new_leaderboard_element.getElementsByTagName("username")[0].textContent = user_scores[i].username;
 
+        let time_of_last_scan = new Date(user_scores[i].time_of_last_scan).toDateString();
+        if (time_of_last_scan == "Invalid Date") {
+            time_of_last_scan = "???";
+        }
+        new_leaderboard_element.getElementsByTagName("last_active")[0].textContent = "Last Korok: " + time_of_last_scan;
+
         let count_string = user_scores[i].korok_count + " Korok";
-        if (user_scores[i].korok_count != 1) 
+        if (user_scores[i].korok_count != 1) {
             count_string += 's';
+        }
         new_leaderboard_element.getElementsByTagName("count")[0].textContent = count_string;
 
         // Append new element to the end of the leaderboard
