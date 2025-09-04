@@ -6,38 +6,78 @@ window.onload = function initialize(){
 }
 
 
+/**
+ * Gets the list of user scores, sorts it, and displays it on the page
+ */
 async function populateLeaderboard() {
-    // Get raw list of names and koroks from session storage
-    let user_scores = JSON.parse(sessionStorage.getItem("user_scores"));
-    const scores_expiration_date = sessionStorage.getItem("scores_expiration_date");
-    // If they don't exist in session storage, check the server
-    if (user_scores == null  ||  scores_expiration_date < Date.now()) {
-        // Get list from server and save it to the session storage
-        user_scores = await getUserScores();
-        sessionStorage.setItem("user_scores", JSON.stringify(user_scores));
-        // Expire the leaderboard in 1 minute
-        sessionStorage.setItem("scores_expiration_date", Date.now() + 1*60000);
+    // Get all user scores
+    let user_scores = await findUserScores();
+    console.log(user_scores)
+    if (user_scores == null) {
+        console.error("User scores could not be retrieved");
+        return;
     }
         
     // Sort list of scores
-    user_scores.sort( function(a,b) {
+    sortUserScores(user_scores);
+
+    // Display scores onto leaderboard
+    displayUserScores(user_scores);
+}
+
+/**
+ * Attempts to find the user scores in session storage, and if that fails, requests them
+ * from the backend
+ */
+async function findUserScores() {
+    // Get raw list of names and koroks from session storage
+    let user_scores = JSON.parse(sessionStorage.getItem("user_scores"));
+    const scores_expiration_date = sessionStorage.getItem("scores_expiration_date");
+
+    // If they don't exist in session storage, request them from the backend
+    if (user_scores == null  ||  scores_expiration_date < Date.now()) {
+        // Get list from server
+        user_scores = await getUserScores();
+        // Check if the scores were returned
+        if (user_scores == null) {
+            return null;
+        }
+        // Save it to the session storage, and set it to expire in 1 minute
+        sessionStorage.setItem("user_scores", JSON.stringify(user_scores));
+        sessionStorage.setItem("scores_expiration_date", Date.now() + 1*60000);
+    }
+
+    return user_scores;
+}
+
+/**
+ * Sorts the `user_scores` based on their Korok count and time of last scans
+ * The sorted list is displayed on the leaderboard
+ */
+function sortUserScores( user_scores ) {
+    user_scores.sort( function(a, b) {
+        // Compare the two scores
         if (b.korok_count != a.korok_count) {
             return b.korok_count - a.korok_count;
         }
         // If the scores are equal, then rank the player which has found a Korok the earliest higher
         else {
-            const a_time_of_last_scan = Date(a.time_of_last_scan);
-            const b_time_of_last_scan = Date(b.time_of_last_scan);
-            return a_time_of_last_scan.getTime() - b_time_of_last_scan.getTime();
+            try {
+                const a_time_of_last_scan = Date(a.time_of_last_scan);
+                const b_time_of_last_scan = Date(b.time_of_last_scan);
+                return a_time_of_last_scan.getTime() - b_time_of_last_scan.getTime();
+            } catch (e) {
+                // Just sort randomly if time_of_last_scane is not found
+                return 1;
+            }
         }
     });
-
-    // Set scores onto leaderboard
-    setLeaderboard(user_scores);
 }
 
-
-function setLeaderboard(user_scores) {
+/**
+ * Displays the `user_scores` in order on the page
+ */
+function displayUserScores(user_scores) {
     let leaderboard = document.getElementById("leaderboard");
     const leaderboard_element = leaderboard.getElementsByClassName("leaderboard_container")[0];
 

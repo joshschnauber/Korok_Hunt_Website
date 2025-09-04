@@ -202,6 +202,34 @@
     background-size: contain;
     container-type: size;
 }
+.show{
+    opacity: 1;
+    visibility: visible;
+}
+.debug{
+    border: 1px solid red;
+    visibility: visible;
+}
+
+.popup_button_container{
+    margin-top: auto;
+    width: 100%;
+}
+.popup_button_container > .popup_button {
+    background-color: #ce7400;
+    border-radius: 3vh;
+    width: 95%;
+    aspect-ratio: 5;
+
+    font-family: Calamity Sans Bold; 
+    color: #fed900; 
+    /*font-size: min(6vh, 8.57vw); .7 aspect*/
+    font-size: min(4vh, 6.664vw);
+
+    border: none;
+    outline: none;
+    outline-width: 0;
+}
 
 .info_popup{
     background-color: rgb(151, 107, 62);
@@ -210,23 +238,45 @@
     box-shadow: 0 0 0 1500px  rgb(0,0,0, .75);
 
     max-width: 90vw;
-    max-height: 90vh;
-    aspect-ratio: .6;
+    max-height: 80vh;
+    aspect-ratio: .7;
     z-index: 3;
 
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
 
     display: flex;
     flex-direction: column;
+    flex-basis: auto;
     flex: 1;
     overflow-y: visible;
+
+    min-height: 0;
+    min-width: 0;
 }
-.info_popup > img{
-    height: 50%;
-    width: auto;
+
+.info_popup_title_text {
+    font-family: Hylia Serif Beta;
+    /*font-size: min(5.5vh, 7.85vw); .7 aspect*/
+    font-size: min(4.71vh, 7.85vw);
+    color: rgba(41, 29, 0, 0.785);
+}
+.info_popup_title_text > u {
+    font-family: Hylia Serif Beta;
+    /*font-size: min(6.4vh, 9.17vw); .7 aspect*/
+    font-size: min(5.5vh, 9.17vw);
+    color: goldenrod;
+}
+
+.info_popup_text{
+    font-family: Calamity Sans;
+    /*font-size: min(4.25vh, 6.07vw);  0.7 aspect */ 
+    font-size: min(3.2vh, 5.1vw);
+    color: whitesmoke;
+
+    padding-top: 4%;
 }
 
 .korok_popup_text{
@@ -236,35 +286,65 @@
 
     text-align: center;
 }
-.korok_popup_text > .korok_popup_prev{
-    font-size: min(3.76vh, 6.24vw);
-    line-height: min(3.76vh, 6.24vw);;
-    color: rgb(193, 193, 193);
-    padding-top: 4%;
-}
-
-.info_popup_text{
+.korok_popup_text > .korok_popup_found_text {
     font-family: Hylia Serif Beta;
-    /*font-size: min(4.25vh, 6.07vw);  0.7 aspect */ 
-    font-size: min(3.9vh, 6.49vw);
+    font-size: min(4.7vh, 7.83vw);
     color: whitesmoke;
 }
-.popup_title_text {
-    font-family: Hylia Serif Beta;
-    /*font-size: min(5.5vh, 7.85vw); .7 aspect*/
-    font-size: min(4.71vh, 7.85vw);
-    color: rgba(41, 29, 0, 0.785);
-    padding-bottom: 3vh;
+.korok_popup_text > .korok_popup_count_text {
+    font-family: Calamity Sans Bold;
+    font-size: min(4.23vh, 7.047vw);
+    color: whitesmoke;
+    padding-top: 5%;
 }
-.popup_title_text > u {
-    font-family: Hylia Serif Beta;
-    /*font-size: min(6.4vh, 9.17vw); .7 aspect*/
-    font-size: min(5.5vh, 9.17vw);
-    color: goldenrod;
+.korok_popup_text > .korok_popup_prev_text {
+    font-family: Calamity Sans;
+    font-size: min(3.384vh, 5.616vw);
+    line-height: min(3.384vh, 5.616vw);
+    color: rgb(193, 193, 193);
+    padding-bottom: 6%;
+}
+.korok_image_div {
+    height:45%
+}
+.korok_image_div > img {
+    height: 100%
+}
+.upper_right_float_text{
+    position: absolute;
+    top: 2%;
+    right: 4%;
+    text-align: right;
 }
 
+.unknown_korok_popup_text {
+    font-family: Hylia Serif Beta;
+    font-size: min(4.7vh, 7.83vw);
+    color: whitesmoke;
 
-.input_popup{
+    text-align: center;
+}
+.unknown_korok_popup_text > h1 {
+    font-family: Calamity Sans Bold;
+    font-size: min(4.7vh, 7.83vw);
+    line-height: min(4.935vh, 8.221vw);
+    color: whitesmoke;
+}
+.unknown_korok_popup_text > h2 {
+    font-family: Calamity Sans;
+    font-size: min(3.384vh, 5.616vw);
+    line-height: min(3.384vh, 5.616vw);
+    color: rgb(193, 193, 193);
+}
+.unknown_korok_image_div {
+    height: 50%;
+    padding-bottom: 6%;
+}
+.unknown_korok_image_div > img {
+    height: 100%;
+}
+
+.username_popup {
     background-color: rgb(151, 107, 62);
     border: 1vw solid rgb(74, 74, 74);
     border-radius: 4vmax;
@@ -278,36 +358,58 @@
     padding-left: 3vw;
     padding-right: 3vw;
     padding-top: 2vh;
-    padding-bottom: 1vh;
+    padding-bottom: 2vh;
 
     display: flex;
     flex-direction: column;
     flex: 1;
     overflow-y: visible;
+
+    min-height: 0;
+    min-width: 0;
 }
 
-.input_popup_text{
-    font-family: Hylia Serif Beta;
-    font-size: min(5vh, 6vw);
-    color: rgb(193, 193, 193);
+.username_popup label {
+    font-family: Calamity Sans Bold;
+    font-size: min(4.5vh, 5.94vw);
+    line-height: 0;
+    color: whitesmoke;
     text-align: center;
+    
+    vertical-align: middle;
 }
-.input_popup_error{
-    font-family: Hylia Serif Beta;
+.username_popup h2 {
+    font-family: Calamity Sans;
+    font-size: min(3.8vh, 4.8vw);
+    line-height: min(4.4vh, 5.28vw);
+    color: rgb(193, 193, 193);
+    
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.username_popup_input {
+    padding-top: 2%;
+    padding-bottom: 1.5%;
+}
+.input_popup_error {
+    font-family: Calamity Sans;
     font-size: min(4vh, 4.8vw);
+    line-height: min(4vh, 4.8vw);
     color: rgb(107, 0, 0);
     text-align: center;
 
-    visibility: hidden;
+    padding-top: 3%;
+    visibility: 1;
 }
-.input_text_area{
-    font-family: Hylia Serif Beta;
+.input_text_area {
+    font-family: Calamity Sans Bold;
     color: black;
 
     width: min(42vh, 50.4vw);
     height: min(6vh, 7.2vw);
-    font-size: min(6vh, 7.2vw);
-    line-height: min(6vh, 7.2vw);
+    font-size: min(5vh, 6vw);
+    line-height: min(5vh, 6.48vw);
     outline: none;
     border: none;
 
@@ -319,42 +421,12 @@
 
     vertical-align: middle;
 }
-.input_text_area_label{
+.input_text_area_label {
     color: whitesmoke;
     vertical-align: middle;
 }
-.top_text_padding{
+.username_popup_input_padding{
     padding-top: 4%;
-}
-
-.popup_button_container{
-    margin-top: 3%;
-    width: 100%;
-}
-.popup_button_container > .popup_button {
-    background-color: rgb(255, 194, 131);
-    border-radius: 3vh;
-    width: 95%;
-    aspect-ratio: 5;
-
-    font-family: Hylia Serif Beta; 
-    color: goldenrod; 
-    /*font-size: min(6vh, 8.57vw); .7 aspect*/
-    font-size: min(5vh, 8.33vw);
-
-    border: none;
-    outline: none;
-    outline-width: 0;
-}
-
-
-.show{
-    opacity: 1;
-    visibility: visible;
-}
-.debug{
-    border: 1px solid red;
-    visibility: visible;
 }
 
 
@@ -450,18 +522,4 @@ body{
 .v_center {
     margin-top: auto;
     margin-bottom: auto;
-}
-
-
-.korok_image_div{
-    height: 50%
-}
-.korok_image_div img{
-    height: 100%
-}
-.upper_right_float_text{
-    position: absolute;
-    top: 2%;
-    right: 4%;
-    text-align: right;
 }

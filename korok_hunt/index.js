@@ -3,130 +3,73 @@ import { createUser, findKorok, setKorok } from "./js/link.js";
 const MAX_KOROK_NUMBER = 10;
 
 
-//Before reloading
+// Before reloading
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
 
 // AWAKE
 document.addEventListener('DOMContentLoaded', _ => {
-    document.getElementById("admin_button").addEventListener("click", newKorokAttempt);
+    document.getElementById("admin_button").addEventListener("click", setNewKorokAttempt);
 });
 
 // START
 window.onload = async function initialize() {    
     // Check the korok from the query parameters
-    await checkKorok();
+    await checkScannedKorok();
 
-    // Display the users name and korok count in the corner
-    userInfoDisplay();
+    // Display the user's name and korok count in the corner
+    displayUserInfo();
+
+
+    // TODO: Remove
+    displayInfoPopup()
+    //displayKorokFoundPopup(1, 4, 2, false, 2);
+    //displayUnknownKorokPopup();
+    //displayUsernamePopup()
 }
 
 
+/* Korok Management */
 
-// USER MANAGEMENT
-async function getEmail() {
-    // Check if cookie exists
-    let email = getCookie("email");
-    if (email == "") {
-        // Request username popup underneath
-        email = await requestEmail();
-    }
-
-    return email;
-}
-
-async function requestEmail() {
-    // Never used site before, show explanation
-    infoPopup();
-    
-    // Popup to request the username
-    var u_popup = usernamePopup();
-    const textareas = u_popup.getElementsByTagName("textarea");
-
-    var button_pressed = false;
-    var email;
-    var username;
-    
-    u_popup.getElementsByTagName("button")[0].onclick = async function() {
-        //check if a valid username was inputted
-        email =  textareas[0].value;
-        username =  textareas[1].value;
-
-        // If the username was invalid
-        try {
-            if (email == "" || username == "")
-                throw new Error("Neither field can be empty")
-
-            if (!email.includes('@') || !email.includes('.'))
-                throw new Error("This email is invalid");
-                
-            if (email.length > 32  ||  username.length > 32)
-                throw new Error("The email or username is too long");
-
-            if (!await createUser(email, username))
-                throw new Error("Error: try again or try a different email");
-
-            button_pressed = true;
-        }
-        catch(err) {
-            document.getElementById("invalid_name").style.visibility = "visible";
-            document.getElementById("invalid_name").textContent = err.message;
-        }
-    };
-
-
-    while (!button_pressed) {
-        await new Promise(r => setTimeout(r, 100));
-    }
-
-    setCookie("email", email);
-    setCookie("username", username);
-
-    closePopup(u_popup);
-
-
-    return email;
-}
-
-
-
-// KOROK MANAGEMENT
-// Check if korok with the id exists
 let scanned_korok_id;
 let scanned_korok_number;
 let scanned_korok_type;
-async function checkKorok() {
+/**
+ * Checks if the user has reached the website by scanning a Korok and determines how to
+ * handle it.
+ */
+async function checkScannedKorok() {
+    // Get Korok data from URL search params
     const url = new URL(window.location);
     var url_params = new URLSearchParams(url.search);
     scanned_korok_id = url_params.get("k_id");
     scanned_korok_number = url_params.get("k_num");
     scanned_korok_type = url_params.get("k_type");
-
+    // Remove the URL search params from the URL
     history.pushState(null, "", location.href.split("?")[0]);
-        
+
     // Check if there was a korok id to check
     if (scanned_korok_id != null && scanned_korok_number != null && scanned_korok_type != null) {
-        // Get the email, either from a cookie or querying the user
+        // Get the user's email, either from a cookie or querying the user
         var email = await getEmail();
         
         // Tell server we found a korok
         const return_data = await findKorok(email, scanned_korok_id);
 
-        // Check that the korok number and type match
-        const is_valid_korok = (return_data != null) && 
-                                return_data.korok_number == scanned_korok_number &&
-                                return_data.korok_type == scanned_korok_type;
-        if (is_valid_korok) {
-            validKorok(return_data);
+        // Check that a valid Korok was found
+        if (return_data != null) {
+            foundValidKorok(return_data);
         } else {
-            unknownKorok();
+            foundInvalidKorok();
         }
     }
 }
 
-// Called if the korok scanned was valid
-async function validKorok(return_data) {
+/**
+ * Called if an valid Korok was scanned
+ */
+async function foundValidKorok(return_data) {
     // Get the korok count from the saved cookie if it wasn't returned
     let korok_count;
     if (return_data.already_found) {
@@ -154,44 +97,136 @@ async function validKorok(return_data) {
         others_scan_count -= 1;
 
     // Display UI
-    korokFoundPopup(korok_number, korok_type, korok_count, return_data.already_found, others_scan_count);
+    displayKorokFoundPopup(korok_number, korok_type, korok_count, return_data.already_found, others_scan_count);
 }
 
-// Called if the korok scanned was invalid
-function unknownKorok(){    
-    unknownKorokPopup();
+/**
+ * Called if an invalid Korok was scanned
+ */
+function foundInvalidKorok(){    
+    displayUnknownKorokPopup();
 }
 
 
+/* User Management */
 
-// ADMIN KOROK MANAGEMENT
-// Attempts to check the location
-function newKorokAttempt() {
-
-    // First check location
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(newKorok);
-    } else {
-        console.log("Geolocation is not supported by this browser.");
+/**
+ * Attempts to find the user's email in cookies, and if that fails, requests the user's
+ * email.
+ */
+async function getEmail() {
+    // Check if cookie exists
+    let email = getCookie("email");
+    if (email == "") {
+        // Request username popup underneath
+        email = await requestEmail();
     }
 
+    return email;
 }
 
-// Called if the location has been successfully collected. 
-// Then, checks the admin password
-async function newKorok(position) {
-    if (scanned_korok_id == null) {
-        alert("Korok id cannot be null.");
+/**
+ * Displays the event info popup and requests the user's email and username with a
+ * separate popup. Returns the email set by the user.
+ */
+async function requestEmail() {
+    // Never used site before, show explanation
+    displayInfoPopup();
+    
+    // Popup to request the username
+    var u_popup = displayUsernamePopup();
+    const textareas = u_popup.getElementsByTagName("textarea");
+
+    // Get the user's email and username from the popup
+    var set_user_info = false;
+    var email;
+    var username;
+
+    u_popup.getElementsByTagName("button")[0].onclick = async function() {
+        // Check if a valid username was inputted
+        email = textareas[0].value;
+        username = textareas[1].value;
+
+        // If the username was invalid
+        try {
+            if (email == "" || username == "") {
+                throw new Error("Neither field can be empty")
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                throw new Error("This email is invalid");
+            }
+            if (email.length > 32  ||  username.length > 32) {
+                throw new Error("The email or username is too long");
+            }
+            if (!await createUser(email, username)) {
+                throw new Error("Server Error: try again or try a different email");
+            }
+            set_user_info = true;
+        }
+        catch (err) {
+            document.getElementById("invalid_name").style.visibility = "visible";
+            document.getElementById("invalid_name").textContent = err.message;
+        }
+    };
+
+    // Wait for the username to set a valid email and username
+    while (!set_user_info) {
+        await new Promise(r => setTimeout(r, 100));
+    }
+
+    // Cache the user's email and username
+    setCookie("email", email);
+    setCookie("username", username);
+
+    closePopup(u_popup);
+
+    return email;
+}
+
+
+/* Admin Management */
+
+/**
+ * Attempts to retreieve geolocation data and then calls a function to set the scanned
+ * Korok into the database.
+ */
+function setNewKorokAttempt() {
+    // Check if a Korok was scanned when opening the website
+    if (scanned_korok_id == null || scanned_korok_number == null || scanned_korok_type == null) {
+        console.error("A Korok has not been scanned");
+        alert("A Korok has not been scanned");
         return;
     }
 
-    // Get the korok location description and password from user
+    // First check location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setNewKorok);
+    } else {
+        console.error("Geolocation is not supported by this browser");
+        alert("Geolocation is not supported by this browser");
+    }
+
+}
+
+/**
+ * Sets the scanned Korok into the database with the providied geolocation
+ * Prompts for the Koroks location description and an admin password
+ */
+async function setNewKorok(position) {
+    // Check if a Korok was scanned when opening the website
+    if (scanned_korok_id == null || scanned_korok_number == null || scanned_korok_type == null) {
+        console.error("A Korok has not been scanned");
+        alert("A Korok has not been scanned")
+    }
+
+    // Prompt for the korok location description
     let description = prompt("Location description:");
     if (description == null) {
         alert("Description cannot be empty.");
         return;
     }
 
+    // Prompt for the admin password, if it has not been cached
     let admin_password = getCookie("admin_password");
     if (admin_password == "") {
         admin_password = prompt("Administrator Password:");
@@ -200,11 +235,12 @@ async function newKorok(position) {
             alert("Password cannot be empty.");
             return;
         }
-            
     }
 
-    // If the korok was successfully set, set the admin password as a cookie
+    // Save the Korok to the database 
     const set_korok_success = await setKorok(scanned_korok_id, scanned_korok_number, scanned_korok_type, description, position, admin_password)
+    
+    // If the korok was successfully set, set the admin password as a cookie
     if (set_korok_success) {
         alert("Korok sucessfully added!");
         setCookie("admin_password", admin_password);
@@ -215,10 +251,13 @@ async function newKorok(position) {
 }
 
 
+/* UI */
 
-// UI
-// Loads the korok popup with the given korok number
-function korokFoundPopup(korok_num, korok_type, korok_count, already_found, prev_found_count){
+/**
+ * Displays the Korok found popup, "kf_popup", using data returned after finding a Korok
+ * @returns The displayed element
+ */
+function displayKorokFoundPopup(korok_num, korok_type, korok_count, already_found, prev_found_count) {
     const kf_popup = document.getElementById("kf_popup");
 
     openPopup(kf_popup);
@@ -232,7 +271,7 @@ function korokFoundPopup(korok_num, korok_type, korok_count, already_found, prev
     //Display if this korok has already been found
     if (already_found) {
         kf_popup.getElementsByTagName("found")[0].style.color = "rgb(164, 14, 14)";
-        kf_popup.getElementsByTagName("found")[0].textContent = "You've already found this korok.";
+        kf_popup.getElementsByTagName("found")[0].textContent = "You've already found me!";
         kf_popup.getElementsByTagName("b_found")[0].textContent = "Ok";
     } else {
         kf_popup.getElementsByTagName("found")[0].style.color = "rgb(168, 212, 9)";
@@ -262,18 +301,26 @@ function korokFoundPopup(korok_num, korok_type, korok_count, already_found, prev
     return kf_popup;
 }
 
-function unknownKorokPopup(){
+/**
+ * Displays the unknown Korok popup, "uk_popup"
+ * @returns The displayed element
+ */
+function displayUnknownKorokPopup() {
     var uk_popup = document.getElementById("uk_popup");
 
     openPopup(uk_popup);
 
-    //Add action to button that closes the popup
+    // Add action to button that closes the popup
     uk_popup.getElementsByTagName("button")[0].onclick = function() { closePopup(uk_popup) };
 
     return uk_popup;
 }
 
-function usernamePopup(){
+/**
+ * Displays the username prompt popup, "u_popup"
+ * @returns The displayed element
+ */
+function displayUsernamePopup() {
     var u_popup = document.getElementById("u_popup");
 
     openPopup(u_popup);
@@ -281,21 +328,29 @@ function usernamePopup(){
     return u_popup;
 }
 
-function infoPopup(){
+/**
+ * Displays the event info popup, "i_popup"
+ * @returns The displayed element
+ */
+function displayInfoPopup() {
     var i_popup = document.getElementById("i_popup");
 
     openPopup(i_popup);
 
-    //Add action to button that closes the popup
+    // Add action to button that closes the popup
     i_popup.getElementsByTagName("button")[0].onclick = function() { closePopup(i_popup) };
 
     return i_popup;
 }
 
-function userInfoDisplay(){
+/**
+ * Displays the user info in the "user_display" element
+ * @returns The displayed element
+ */
+function displayUserInfo() {
     const username = getCookie("username");
 
-    if(username != ""){
+    if (username != "") {
         let korok_count = getCookie("korok_count");
         if(korok_count == "")
             korok_count = 0;
@@ -307,7 +362,6 @@ function userInfoDisplay(){
         user_display.getElementsByTagName("username")[0].textContent = username;
         user_display.getElementsByTagName("count")[0].textContent = korok_count;
         
-        
         // Fade in display
         fadeIn(user_display, 100);
 
@@ -318,8 +372,10 @@ function userInfoDisplay(){
 }
 
 var popup_set = new Set();
-//Fades the element in and locks the screen scrolling
-function openPopup(popup){
+/**
+ * Closes the given `popup` and locks the screen to from scrolled
+ */
+function openPopup(popup) {
     //Display stuff
     fadeIn(popup, 400);
 
@@ -331,8 +387,10 @@ function openPopup(popup){
     document.getElementById('body').style.overflow = 'hidden';
 }
 
-//Fades the element out and allows the screen to be scrolled
-function closePopup(popup){
+/**
+ * Closes the given `popup` and unlocks the screen to be scrolled
+ */
+function closePopup(popup) {
     //Display stuff
     fadeOut(popup, 400);
 
@@ -340,16 +398,16 @@ function closePopup(popup){
     popup_set.delete(popup);
 
     //Allow scrolling if the popup set is empty
-    if(popup_set.size == 0){
+    if (popup_set.size == 0) {
         document.getElementById('html').style.overflow = 'unset';
         document.getElementById('body').style.overflow = 'unset';
     }
 }
 
-
-//Fade in element
-function fadeIn( elem, ms )
-{
+/**
+ * Fades in the element `elem` over the course of `ms` milliseconds
+ */
+function fadeIn( elem, ms ) {
     if( ! elem )
         return;
 
@@ -378,9 +436,11 @@ function fadeIn( elem, ms )
         elem.style.filter = "alpha(opacity=1)";
     }
 }
-//Fade out element
-function fadeOut( elem, ms )
-{
+
+/**
+ * Fades out the element `elem` over the course of `ms` milliseconds
+ */
+function fadeOut( elem, ms ) {
     if( ! elem )
         return;
 
@@ -410,8 +470,11 @@ function fadeOut( elem, ms )
 }
 
 
+/* Utility */
 
-// UTILITY
+/**
+ * Retrieves the cookie with the given `c_name`
+ */
 function getCookie(c_name){
     if (document.cookie.length > 0) {
         var c_start = document.cookie.indexOf(c_name + "=");
@@ -427,6 +490,9 @@ function getCookie(c_name){
     return "";
 }
 
+/**
+ * Sets the cookie with the given `c_name` with the given `data`
+ */
 function setCookie(c_name, data){
     // Build the expiration date string:
     var expiration_date = new Date();
@@ -438,6 +504,9 @@ function setCookie(c_name, data){
     document.cookie = cookie_string;
 }
 
+/**
+ * Deletes the cookie with the given `c_name`
+ */
 function deleteCookie(c_name){
     if( getCookie(c_name) != "") {
         document.cookie = c_name + "=" +
