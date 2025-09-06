@@ -57,13 +57,18 @@ export async function setKorok(korok_id, korok_number, korok_type, description, 
     const query_string = "https://8n8fsfczsl.execute-api.us-east-2.amazonaws.com/set_korok"
         + "?k_id=" + korok_id
         + "&k_num=" + korok_number
-        + "&k_type" + korok_type
+        + "&k_type=" + korok_type
         + "&description=" + description
         + "&lat=" + lat
         + "&long=" + long
         + "&password=" + admin_password;
     const result = await fetch(query_string);
     const status = result.status;
+
+    // Display error
+    if (status != 200) {
+        console.error(result);
+    }
 
     // If the status is 200, the username was added to the database
     return status == 200;

@@ -148,8 +148,17 @@ async function requestEmail() {
             if (!email.includes('@') || !email.includes('.')) {
                 throw new Error("This email is invalid");
             }
-            if (email.length > 32  ||  username.length > 32) {
-                throw new Error("The email or username is too long");
+            if (email.match(/[\\/<>%{}|^`$?&=]/)) {
+                throw new Error("The email contains invalid characters")
+            }
+            if (username.match(/[\\/<>%{}|^`$?&=]/)) {
+                throw new Error("The username contains invalid characters")
+            }
+            if (email.length > 32) {
+                throw new Error("The email is too long (32 characters max)");
+            }
+            if (username.length > 32) {
+                throw new Error("The username is too long (32 characters max)");
             }
             if (!await createUser(email, username)) {
                 throw new Error("Server Error: try again or try a different email");

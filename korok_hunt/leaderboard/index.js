@@ -77,6 +77,11 @@ function sortUserScores( user_scores ) {
  * Displays the `user_scores` in order on the page
  */
 function displayUserScores(user_scores) {
+    // Change nothing if there are no users
+    if(user_scores == null || user_scores.length == 0) {
+        return;
+    }
+
     let leaderboard = document.getElementById("leaderboard");
     const leaderboard_element = leaderboard.getElementsByClassName("leaderboard_container")[0];
 
