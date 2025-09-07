@@ -21,7 +21,7 @@
     <div class="top_container">
         <div class="logo_container">
             <a href="/korok_hunt/">
-            <img src="/korok_hunt/img/korok_hunt_logo.png" alt="Korok Hunt Logo">
+            <img src="/korok_hunt/img/korok_hunt_logo.png" alt="2nd RPI Korok Hunt Logo">
             </a>
         </div>
 
@@ -33,6 +33,13 @@
     </div>
     <br>
     <br>
+
+    <div id="leaderboard_button" class="leaderboard_button">
+        <a href="/korok_hunt/leaderboard/" class="center">
+        <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
+        </a>
+    </div>
+    <br><br><br><br>
 
     <div id="about" class="text_container">
         <div class="t_paragraph"><u>What Is This?</u></div> <br>
@@ -51,13 +58,6 @@
             <u><a target="_blank" rel="noopener noreferrer"href="https://discord.gg/A79Au6BcsJ">discord server</a></u>!
             <br><br>
         </div>
-    </div>
-    <br><br><br><br>
-
-    <div id="leaderboard_button" class="leaderboard_button">
-        <a href="/korok_hunt/leaderboard/" class="center">
-        <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
-        </a>
     </div>
     <br><br><br><br>
 
@@ -113,10 +113,10 @@
                 <found>Yahaha! You found me!</found><br>
             </div>
             <div class="korok_popup_count_text">
-                You've found <count>-1 Koroks</count>!
+                You've found <count>??? Koroks</count>!
             </div>
             <div class="korok_popup_prev_text">
-                <prev_found>-1 other players have</prev_found> found this Korok.
+                <prev_found>??? other players have</prev_found> found this Korok.
             </div>
         </div>
 
@@ -138,7 +138,7 @@
                 This is not a valid Korok.
             </h1>
             <h2>
-                Scan a valid QR code to find Koroks!
+                Scan a valid QR code to find Koroks or try scanning again!
             </h2>
         </div>
 
@@ -156,13 +156,13 @@
     <div id="u_popup" class="align_popup username_popup">
 
         <div class="username_popup_input center">
-            <label>Email &nbsp</label>
+            <label>Email</label>
             <textarea id="email_input" class="input_text_area" rows="1" cols="15" maxlength="32"></textarea>
         </div>
         <h2>This email will only be used to contact you if you win.</h2>
 
         <div class="username_popup_input_padding username_popup_input center">
-            <label>Username &nbsp</label>
+            <label>Username</label>
             <textarea id="username_input" class="input_text_area" rows="1" cols="14" maxlength="32"></textarea>
         </div>
         <h2>This username will be displayed on the leaderboard.</h2>
@@ -180,15 +180,19 @@
 
     <!-- INFO POPUP -->
     <div  id="i_popup" class="align_popup info_popup">
-        <div class="info_popup_title_text center">
-            The RPI Korok Hunt <br><u> Starts Anew! </u> <br>
+        <div class="info_popup_title_div center">
+            <h1> The </h1>
+            <div class="logo_div">
+                <img src="/korok_hunt/img/korok_hunt_logo.png" alt="RPI Korok Hunt Logo">
+            </div>
+            <h1><u> Starts Now! </u></h1>
         </div>
 
         <div class="info_popup_text">
             The RPI Korok Hunt is a campus-wide Korok hunting event!
         </div>
         <div class="info_popup_text">
-            Search across RPI for hidden Korok stickers! Scan their QR codes in order to increment your score.
+            Search across RPI for hidden Korok stickers! Scan their QR codes to increment your score.
         </div>
         <div class="info_popup_text">
             Compete against other RPI students to find the most!

@@ -96,7 +96,7 @@
 
 
 /* Phone Display*/
-@media all and (max-device-aspect-ratio:1) {
+@media all and (max-aspect-ratio:1) {
     .top_container {
         display: flex;
         flex-direction: column;
@@ -161,9 +161,9 @@
 /* User Info Styling */
 .user_display {
     background-color: rgb(151, 107, 62);
-    border-left: 10px solid rgb(74, 74, 74);
-    border-bottom: 10px solid rgb(74, 74, 74);
-    ;
+    border-left: 10px solid rgb(80, 54, 32);
+    border-bottom: 10px solid rgb(80, 54, 32);
+    
     border-bottom-left-radius: 3vw;
     box-shadow: 0 0 10vw black;
 
@@ -221,7 +221,7 @@
     width: 100%;
 }
 
-.popup_button_container>.popup_button {
+.popup_button_container > .popup_button {
     background-color: #ce7400;
     border-radius: 3vh;
     width: 95%;
@@ -230,7 +230,8 @@
     font-family: Calamity Sans Bold;
     color: #fed900;
     /*font-size: min(6vh, 8.57vw); .7 aspect*/
-    font-size: min(5.16vh, 6.2vw);
+    font-size: min(5.083vh, 6.1vw);
+    white-space: nowrap;
 
     border: none;
     outline: none;
@@ -263,24 +264,45 @@
     min-width: 0;
 }
 
-.info_popup_title_text {
-    font-family: Hylia Serif Beta;
-    /*font-size: min(5.5vh, 7.85vw); .7 aspect*/
-    font-size: min(4.71vh, 7.85vw);
-    color: rgba(41, 29, 0, 0.785);
+.info_popup_title_div {
+    display: flex;
+    flex-direction: column;
+
+    height: 42%;
+    padding-bottom: 1%;
 }
 
-.info_popup_title_text>u {
-    font-family: Hylia Serif Beta;
-    /*font-size: min(6.4vh, 9.17vw); .7 aspect*/
-    font-size: min(5.5vh, 9.17vw);
+.info_popup_title_div > h1,.h1 {
+    font-family: Calamity Sans Bold;
+    font-size: min(3.6vh, 6vw);
+    line-height: min(3.6vh, 6vw);
+    color: rgba(41, 29, 0, 0.785);
+    font-weight: normal;
+
+    margin: 0px;
+    padding-bottom: 1%;
+}
+
+.info_popup_title_div > h1 > u {
+    font-size: min(4.2vh, 7.0vw);
+    line-height: min(4.2vh, 7.0vw);
     color: goldenrod;
+    font-weight: normal;
+}
+
+.info_popup_title_div > .logo_div {
+    height: 75%;
+}
+
+.info_popup_title_div > .logo_div > img {
+    height: 100%;
 }
 
 .info_popup_text {
     font-family: Calamity Sans;
     /*font-size: min(4.25vh, 6.07vw);  0.7 aspect */
     font-size: min(3.2vh, 5.1vw);
+    line-height: min(3.6vh, 5.76vw);
     color: whitesmoke;
 
     padding-top: 4%;
@@ -294,29 +316,31 @@
     text-align: center;
 }
 
-.korok_popup_text>.korok_popup_found_text {
+.korok_popup_text > .korok_popup_found_text {
     font-family: Hylia Serif Beta;
     font-size: min(4.7vh, 7.83vw);
+    line-height: min(5vh, 8.33vw);
     color: whitesmoke;
 }
 
-.korok_popup_text>.korok_popup_count_text {
+.korok_popup_text > .korok_popup_count_text {
     font-family: Calamity Sans Bold;
     font-size: min(4.23vh, 7.047vw);
+    line-height: min(4.935vh, 8.221vw);
     color: whitesmoke;
     padding-top: 5%;
 }
 
-.korok_popup_text>.korok_popup_prev_text {
+.korok_popup_text > .korok_popup_prev_text {
     font-family: Calamity Sans;
     font-size: min(3.384vh, 5.616vw);
     line-height: min(3.384vh, 5.616vw);
     color: rgb(193, 193, 193);
-    padding-bottom: 6%;
 }
 
 .korok_image_div {
-    height: 45%
+    height: 45%;
+    padding-bottom: 6%;
 }
 
 .korok_image_div > img {
@@ -339,18 +363,24 @@
     text-align: center;
 }
 
-.unknown_korok_popup_text>h1 {
+.unknown_korok_popup_text > h1 {
     font-family: Calamity Sans Bold;
     font-size: min(4.7vh, 7.83vw);
     line-height: min(4.935vh, 8.221vw);
     color: whitesmoke;
+    font-weight: normal;
+
+    margin: 0;
 }
 
-.unknown_korok_popup_text>h2 {
+.unknown_korok_popup_text > h2 {
     font-family: Calamity Sans;
     font-size: min(3.384vh, 5.616vw);
     line-height: min(3.384vh, 5.616vw);
     color: rgb(193, 193, 193);
+    font-weight: normal;
+
+    margin: 0;
 }
 
 .unknown_korok_image_div {
@@ -358,7 +388,7 @@
     padding-bottom: 6%;
 }
 
-.unknown_korok_image_div>img {
+.unknown_korok_image_div > img {
     height: 100%;
 }
 
@@ -395,6 +425,7 @@
     text-align: center;
 
     vertical-align: middle;
+    padding-right: 1vw;
 }
 
 .username_popup h2 {
@@ -402,15 +433,17 @@
     font-size: min(3.8vh, 4.8vw);
     line-height: min(4.4vh, 5.28vw);
     color: rgb(193, 193, 193);
+    font-weight: normal;
 
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .username_popup_input {
     padding-top: 2%;
     padding-bottom: 1.5%;
+
+    white-space: nowrap;
 }
 
 .input_popup_error {
@@ -473,14 +506,14 @@
     background: transparent;
 }
 
-.leaderboard_container {
-    width: 90%;
+.leaderboard_item {
+    width: auto;
     display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1.5vh;
-    margin-bottom: 1.5vh;
+    flex-direction: column;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     padding-left: 1vw;
     padding-right: 1vw;
     padding-top: 1vh;
@@ -488,6 +521,11 @@
 
     background-color: rgb(211, 154, 61);
     border-radius: 2vh;
+}
+
+.leaderboard_item > .leaderboard_rank_item {
+    display: flex;
+    flex-direction: row;
 
     font-family: Calamity Sans Bold;
     color: rgb(122, 81, 0);
@@ -496,40 +534,48 @@
     line-height: 1.25em;
 }
 
-.leaderboard_container rank {
+.leaderboard_item rank {
     padding-left: 0.5vw;
     font-family: Hylia Serif Beta;
 }
 
-.leaderboard_container username {
+.leaderboard_item username {
     padding-left: 1vw;
     padding-right: 2vw;
     text-wrap: wrap;
 }
 
-.leaderboard_container last_active {
-    font-family: Calamity Sans;
-    color: rgb(133, 98, 29);
-    text-shadow: none;
-    font-size: 1.5vw;
-}
-
-.leaderboard_container count {
+.leaderboard_item count {
     padding-right: 0.5vw;
     margin-left: auto;
     width: auto;
     text-wrap: nowrap;
 }
 
+.leaderboard_item > .leaderboard_other_item {
+    font-family: Calamity Sans;
+    color: rgb(133, 98, 29);
+    text-shadow: none;
+    font-size: 1.2vw;
+    line-height: 1.25em;
+}
+
+.leaderboard_item last_active {
+    padding-left: 2em;
+}
+
 
 /* Phone Display*/
-@media all and (max-device-aspect-ratio:1) {
-    .l_container>.leaderboard_frame {
+@media all and (max-aspect-ratio:1) {
+    .l_container > .leaderboard_frame {
         height: 60vh;
     }
 
-    .leaderboard_container {
-        font-size: calc(92px - 4vw);
+    .leaderboard_item > .leaderboard_rank_item {
+        font-size: 5vw;
+    }
+    .leaderboard_item > .leaderboard_other_item {
+        font-size: 3vw;
     }
 }
 

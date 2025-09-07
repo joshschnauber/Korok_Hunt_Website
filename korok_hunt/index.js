@@ -60,7 +60,7 @@ async function checkScannedKorok() {
 }
 
 /**
- * Called if an valid Korok was scanned
+ * Called if a valid Korok was scanned
  */
 async function foundValidKorok(return_data) {
     // Get the korok count from the saved cookie if it wasn't returned
