@@ -296,6 +296,7 @@
 
 .info_popup_title_div > .logo_div > img {
     height: 100%;
+    filter: drop-shadow(0 0 20px rgb(92, 76, 56));
 }
 
 .info_popup_text {
@@ -305,7 +306,7 @@
     line-height: min(3.6vh, 5.76vw);
     color: whitesmoke;
 
-    padding-top: 4%;
+    padding-top: 3%;
 }
 
 .korok_popup_text {
@@ -340,7 +341,7 @@
 
 .korok_image_div {
     height: 45%;
-    padding-bottom: 6%;
+    padding-bottom: 3%;
 }
 
 .korok_image_div > img {
