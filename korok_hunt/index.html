@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
 <html id="html" lang="en">
+
 <head>
     <title> RPI Korok Hunt </title>
-    <meta name="description" content="The RPI Korok Hunt is a campus-wide scavenger hunt! Scan hidden QR codes to collect Koroks and increment your score!"/>
+    <meta name="description"
+        content="The RPI Korok Hunt is a campus-wide scavenger hunt! Scan hidden QR codes to collect Koroks and increment your score!" />
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/korok_hunt/css/main.css">
     <link rel="icon" type="image/x-icon" href="/korok_hunt/favicon.ico">
-    <meta name="theme-color" content="#E28C3F"/>
+    <meta name="theme-color" content="#E28C3F" />
 
     <link rel="canonical" href="https://joshschnauber.com/korok_hunt/" />
     <meta property="og:title" content="The RPI Korok Hunt" />
-    <meta property="og:description" content="Find Koroks hidden across campus in the RPI Korok Hunt!"/>
-    <meta property="og:image" content="/korok_hunt/img/korok_hunt_logo.png"/>
+    <meta property="og:description" content="Find Koroks hidden across campus in the RPI Korok Hunt!" />
+    <meta property="og:image" content="/korok_hunt/img/korok_hunt_logo.png" />
 </head>
 
 <body id="body">
@@ -21,13 +23,14 @@
     <div class="top_container">
         <div class="logo_container">
             <a href="/korok_hunt/">
-            <img src="/korok_hunt/img/korok_hunt_logo.png" alt="2nd RPI Korok Hunt Logo">
+                <img src="/korok_hunt/img/korok_hunt_logo.png" alt="2nd RPI Korok Hunt Logo">
             </a>
         </div>
 
         <div class="l_container">
-            <iframe id="map_frame" src="https://www.google.com/maps/d/embed?mid=1sQ9IUtx9Tl_KdBbNlgUKyGP-l8e0GK8&ehbc=2E312F&noprof=1"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map_frame">
+            <iframe id="map_frame"
+                src="https://www.google.com/maps/d/embed?mid=1sQ9IUtx9Tl_KdBbNlgUKyGP-l8e0GK8&ehbc=2E312F&noprof=1"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map_frame">
             </iframe>
         </div>
     </div>
@@ -36,7 +39,7 @@
 
     <div id="leaderboard_button" class="leaderboard_button">
         <a href="/korok_hunt/leaderboard/" class="center">
-        <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
+            <img src="/korok_hunt/img/leaderboard_button.png" alt="View leaderboard">
         </a>
     </div>
     <br><br><br><br>
@@ -44,20 +47,30 @@
     <div id="about" class="text_container">
         <div class="t_paragraph"><u>What Is This?</u></div> <br>
         <div class="b_paragraph">
-            Find the Koroks hidden all over campus! Each Korok has a QR code to scan, which will increment your score. 
+            The RPI Korok Hunt is a scavenger hunt in which you
+            find the Korok stickers hidden all over campus! Each Korok has a QR code to scan, which will increment your score.
             <br>
-            Compete against your fellow students to find the most Koroks!
+            Compete against other students to find the most Koroks!
             <br><br>
             All Koroks will be found outside, and within the bounds shown above.
             Don't go searching anywhere you shouldn't be; Koroks probably aren't hiding there.
             <br><br>
-            The top three players by the end of <u>???</u> will win 
-            <u><a target="_blank" rel="noopener noreferrer"href="/korok_hunt/img/unknown.svg">???</a></u>!
+            The top three players by the end of <u>October 26th</u> will win
+            <u><a target="_blank" rel="noopener noreferrer" href="/korok_hunt/img/unknown.svg">???</a></u>!
             <br><br>
             For announcements, conversation, and/or questions about the event, we have a
-            <u><a target="_blank" rel="noopener noreferrer"href="https://discord.gg/A79Au6BcsJ">discord server</a></u>!
+            <u><a target="_blank" rel="noopener noreferrer" href="https://discord.gg/A79Au6BcsJ">discord server</a></u>!
             <br><br>
         </div>
+    </div>
+    <br><br><br><br>
+
+
+    <div id="sticker_example" class="img_container">
+        <div class="b_paragraph center">
+            This is an example of what to look out for on campus:
+        </div>
+        <img src="/korok_hunt/img/sticker_example.png" alt="RPI Korok Hunt Example Sticker" class="center">
     </div>
     <br><br><br><br>
 
@@ -68,8 +81,9 @@
             As such, there are a few small changes from last year:
             <br>
             - The bounds have been made smaller to no longer include Freshman Hill. <br>
-            - The Koroks will be released in waves of around 30 Koroks every 2 or so weeks <br>
-            - Each batch of released Koroks will be in a particular area of campus, so that you don't have to re-search anywhere after new waves <br>
+            - The initial wave consists of 80 Koroks, instead of 50. <br> 
+            - After the initial wave, more Koroks will be released in 3 waves of around 30 Koroks each. <br>
+            - Each new batch of released Koroks will be in a particular segment of campus, which will be marked on the map.  <br>
             <br>
         </div>
     </div>
@@ -79,7 +93,8 @@
         <div class="t_paragraph"><u>Cheating Notice</u></div> <br>
         <div class="b_paragraph">
             Don't ruin the fun for everyone else. <br>
-            Removing or moving Koroks from their original location, as well as scanning Koroks that have been removed will result in disqualification.
+            Removing or moving Koroks from their original location, as well as scanning Koroks that have been removed
+            will result in disqualification.
             <br><br>
         </div>
     </div>
@@ -88,7 +103,9 @@
     <div class="bottom_paragraph">
         Made by an RPI student, for RPI students.<br>
         Not endorsed or sponsored by Rensselaer Polytechnic Institute.<br>
-        The code for this website can be found <a target="_blank" rel="noopener noreferrer" href="https://github.com/joshschnauber/Korok_Hunt_Website" target="_blank" rel="noopener noreferrer">here.</a>
+        The code for this website can be found <a target="_blank" rel="noopener noreferrer"
+            href="https://github.com/joshschnauber/Korok_Hunt_Website" target="_blank"
+            rel="noopener noreferrer">here.</a>
     </div>
     <br>
 
@@ -107,7 +124,7 @@
             <korok_number class="korok_popup_text upper_right_float_text">#000</korok_number>
             <img id="korok_img" src="/korok_hunt/img/unknown.svg" alt="Yahaha! You found me!" class="center">
         </div>
-        
+
         <div class="korok_popup_text">
             <div class="korok_popup_found_text">
                 <found>Yahaha! You found me!</found><br>
@@ -130,7 +147,8 @@
     <!-- UNKNOWN KOROK POPUP -->
     <div id="uk_popup" class="align_popup info_popup">
         <div class="unknown_korok_image_div">
-            <img id="unknown_korok_img" src="/korok_hunt/img/unknown.svg" alt="Nohoho! You didn't find me!" class="center">
+            <img id="unknown_korok_img" src="/korok_hunt/img/unknown.svg" alt="Nohoho! You didn't find me!"
+                class="center">
         </div>
 
         <div class="unknown_korok_popup_text">
@@ -143,7 +161,7 @@
         </div>
 
         <div class="popup_button_container">
-            <button class="popup_button center"> 
+            <button class="popup_button center">
                 Ok
             </button>
             <button id="admin_button" class="center">
@@ -179,7 +197,7 @@
     </div>
 
     <!-- INFO POPUP -->
-    <div  id="i_popup" class="align_popup info_popup">
+    <div id="i_popup" class="align_popup info_popup">
         <div class="info_popup_title_div center">
             <h1> The </h1>
             <div class="logo_div">
@@ -208,5 +226,5 @@
 
     <script type="module" src="/korok_hunt/index.js"></script>
 </body>
-</html>
 
+</html>

@@ -36,12 +36,33 @@
 
 .text_container {
     background-color: rgb(226, 144, 72);
-    border-radius: 2vw;
+    border-radius: min(4vh, 4.8vw);
+    ;
     box-shadow: 0 5px 10px rgb(142, 118, 86);
 
     width: 82%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.img_container {
+    background-color: rgb(226, 144, 72);
+    border-radius: min(4vh, 4.8vw);
+    ;
+    box-shadow: 0 5px 10px rgb(142, 118, 86);
+
+    max-height: 50vh;
+    max-width: 88vw;
+    aspect-ratio: 1.5;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2vw;
+    padding-bottom: 4vw;
+    
+}
+
+.img_container img {
+    width: 92%;
 }
 
 /* Text */
@@ -55,7 +76,8 @@
     margin-right: auto;
     width: 95%;
 
-    font-size: calc(92px - 4vw);
+    font-size: min(3.6vh, 5.76vw);
+    line-height: min(4.05vh, 6.48vw);
     line-height: 1.5em;
 }
 
@@ -66,9 +88,11 @@
 
     text-align: center;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 2%;
+    padding-bottom: 1%;
 
-    font-size: calc(122px - 4vw);
+    font-size: min(7vh, 11.2vw);
+    line-height: min(7.875vh, 12.6vw);
 }
 
 .bottom_paragraph {
@@ -163,7 +187,7 @@
     background-color: rgb(151, 107, 62);
     border-left: 10px solid rgb(80, 54, 32);
     border-bottom: 10px solid rgb(80, 54, 32);
-    
+
     border-bottom-left-radius: 3vw;
     box-shadow: 0 0 10vw black;
 
@@ -221,7 +245,7 @@
     width: 100%;
 }
 
-.popup_button_container > .popup_button {
+.popup_button_container>.popup_button {
     background-color: #ce7400;
     border-radius: 3vh;
     width: 95%;
@@ -272,7 +296,8 @@
     padding-bottom: 1%;
 }
 
-.info_popup_title_div > h1,.h1 {
+.info_popup_title_div>h1,
+.h1 {
     font-family: Calamity Sans Bold;
     font-size: min(3.6vh, 6vw);
     line-height: min(3.6vh, 6vw);
@@ -283,18 +308,18 @@
     padding-bottom: 1%;
 }
 
-.info_popup_title_div > h1 > u {
+.info_popup_title_div>h1>u {
     font-size: min(4.2vh, 7.0vw);
     line-height: min(4.2vh, 7.0vw);
     color: goldenrod;
     font-weight: normal;
 }
 
-.info_popup_title_div > .logo_div {
+.info_popup_title_div>.logo_div {
     height: 75%;
 }
 
-.info_popup_title_div > .logo_div > img {
+.info_popup_title_div>.logo_div>img {
     height: 100%;
     filter: drop-shadow(0 0 20px rgb(92, 76, 56));
 }
@@ -317,14 +342,14 @@
     text-align: center;
 }
 
-.korok_popup_text > .korok_popup_found_text {
+.korok_popup_text>.korok_popup_found_text {
     font-family: Hylia Serif Beta;
     font-size: min(4.7vh, 7.83vw);
     line-height: min(5vh, 8.33vw);
     color: whitesmoke;
 }
 
-.korok_popup_text > .korok_popup_count_text {
+.korok_popup_text>.korok_popup_count_text {
     font-family: Calamity Sans Bold;
     font-size: min(4.23vh, 7.047vw);
     line-height: min(4.935vh, 8.221vw);
@@ -332,7 +357,7 @@
     padding-top: 5%;
 }
 
-.korok_popup_text > .korok_popup_prev_text {
+.korok_popup_text>.korok_popup_prev_text {
     font-family: Calamity Sans;
     font-size: min(3.384vh, 5.616vw);
     line-height: min(3.384vh, 5.616vw);
@@ -344,7 +369,7 @@
     padding-bottom: 3%;
 }
 
-.korok_image_div > img {
+.korok_image_div>img {
     height: 100%;
     filter: drop-shadow(1px 1.5vh 2vh #222222b1);
 }
@@ -364,7 +389,7 @@
     text-align: center;
 }
 
-.unknown_korok_popup_text > h1 {
+.unknown_korok_popup_text>h1 {
     font-family: Calamity Sans Bold;
     font-size: min(4.7vh, 7.83vw);
     line-height: min(4.935vh, 8.221vw);
@@ -374,7 +399,7 @@
     margin: 0;
 }
 
-.unknown_korok_popup_text > h2 {
+.unknown_korok_popup_text>h2 {
     font-family: Calamity Sans;
     font-size: min(3.384vh, 5.616vw);
     line-height: min(3.384vh, 5.616vw);
@@ -389,7 +414,7 @@
     padding-bottom: 6%;
 }
 
-.unknown_korok_image_div > img {
+.unknown_korok_image_div>img {
     height: 100%;
 }
 
@@ -524,7 +549,7 @@
     border-radius: 2vh;
 }
 
-.leaderboard_item > .leaderboard_rank_item {
+.leaderboard_item>.leaderboard_rank_item {
     display: flex;
     flex-direction: row;
 
@@ -553,7 +578,7 @@
     text-wrap: nowrap;
 }
 
-.leaderboard_item > .leaderboard_other_item {
+.leaderboard_item>.leaderboard_other_item {
     font-family: Calamity Sans;
     color: rgb(133, 98, 29);
     text-shadow: none;
@@ -568,14 +593,15 @@
 
 /* Phone Display*/
 @media all and (max-aspect-ratio:1) {
-    .l_container > .leaderboard_frame {
+    .l_container>.leaderboard_frame {
         height: 60vh;
     }
 
-    .leaderboard_item > .leaderboard_rank_item {
+    .leaderboard_item>.leaderboard_rank_item {
         font-size: 5vw;
     }
-    .leaderboard_item > .leaderboard_other_item {
+
+    .leaderboard_item>.leaderboard_other_item {
         font-size: 3vw;
     }
 }
