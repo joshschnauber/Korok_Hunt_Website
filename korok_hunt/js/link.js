@@ -7,9 +7,10 @@ export async function createUser(email, username){
         + "&username=" + username;
     const result = await fetch(query_string);
     const status = result.status;
+    const data = await result.json();
     
     // If the status is 200, the username was added to the database
-    return status == 200;
+    return data;
 }
 
 
@@ -20,15 +21,9 @@ export async function findKorok(email, korok_id){
         + "?email=" + email 
         + "&k_id=" + korok_id;
     const result = await fetch(query_string);
-    const status = result.status;
     const data = await result.json();
 
-    // If the status is 200, the korok was successfully found
-    if (status == 200) {
-        return data;
-    } else {
-        return null;
-    }
+    return data;
 }
 
 

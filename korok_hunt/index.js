@@ -43,54 +43,67 @@ async function checkScannedKorok() {
     history.pushState(null, "", location.href.split("?")[0]);
 
     // Check if there was a korok id to check
-    if (scanned_korok_id != null && scanned_korok_number != null && scanned_korok_type != null) {
-        // Get the user's email, either from a cookie or querying the user
-        var email = await getEmail();
-        
-        // Tell server we found a korok
-        const return_data = await findKorok(email, scanned_korok_id);
+    if (scanned_korok_id == null || scanned_korok_number == null || scanned_korok_type == null) {
+        return;
+    }
 
-        // Check that a valid Korok was found
-        if (return_data != null) {
-            foundValidKorok(return_data);
-        } else {
+    // Get the user's email, either from a cookie or querying the user
+    var email = await getEmail();
+    // Tell server we found a korok
+    var find_korok_result = await findKorok(email, scanned_korok_id);
+
+    // Check if there was an error
+    if (Object.hasOwn(find_korok_result, "error")) {
+        if (find_korok_result.error != "UNKNOWN_USER") {
             foundInvalidKorok();
+            return;
+        }
+        
+        // Prompt for an email and username if the user is unknown and attempt to find korok again
+        email = await requestEmail();
+        find_korok_result = await findKorok(email, scanned_korok_id);
+        // If there is an error again, just display the korok as unknown
+        if (Object.hasOwn(find_korok_result, "error")) {
+            foundInvalidKorok();
+            return;
         }
     }
+
+    foundValidKorok(find_korok_result);
 }
 
 /**
  * Called if a valid Korok was scanned
  */
-async function foundValidKorok(return_data) {
+async function foundValidKorok(find_korok_result) {
     // Get the korok count from the saved cookie if it wasn't returned
     let korok_count;
-    if (return_data.already_found) {
+    if (find_korok_result.already_found) {
         korok_count = getCookie("korok_count");
         // If the cookie doesn't exist for some reason, check if the count was returned
         if (korok_count == "")
-            korok_count = return_data.new_korok_count;
+            korok_count = find_korok_result.new_korok_count;
         if (korok_count == null)
             korok_count = "???";
         else
             setCookie("korok_count", korok_count);
     }
     else {
-        korok_count = return_data.new_korok_count;
+        korok_count = find_korok_result.new_korok_count;
         setCookie("korok_count", korok_count);
     }
     
     // Assign Korok number and type
-    let korok_number = return_data.korok_number;
-    let korok_type = return_data.korok_type;
+    let korok_number = find_korok_result.korok_number;
+    let korok_type = find_korok_result.korok_type;
 
     // Decrement the count of other players found if this player has already found the korok
-    let others_scan_count = return_data.prev_scan_count;
-    if(return_data.already_found)
+    let others_scan_count = find_korok_result.prev_scan_count;
+    if(find_korok_result.already_found)
         others_scan_count -= 1;
 
     // Display UI
-    displayKorokFoundPopup(korok_number, korok_type, korok_count, return_data.already_found, others_scan_count);
+    displayKorokFoundPopup(korok_number, korok_type, korok_count, find_korok_result.already_found, others_scan_count);
 }
 
 /**
@@ -134,6 +147,7 @@ async function requestEmail() {
     var set_user_info = false;
     var email;
     var username;
+    var korok_count;
 
     u_popup.getElementsByTagName("button")[0].onclick = async function() {
         // Check if a valid username was inputted
@@ -160,9 +174,15 @@ async function requestEmail() {
             if (username.length > 32) {
                 throw new Error("The username is too long (32 characters max)");
             }
-            if (!await createUser(email, username)) {
+            // Send request to backend
+            const create_user_result = await createUser(email, username)
+            if (Object.hasOwn(create_user_result, "error")) {
                 throw new Error("Server Error: try again or try a different email");
             }
+
+            username = create_user_result.username;
+            korok_count = create_user_result.korok_count;
+
             set_user_info = true;
         }
         catch (err) {
@@ -179,6 +199,7 @@ async function requestEmail() {
     // Cache the user's email and username
     setCookie("email", email);
     setCookie("username", username);
+    setCookie("korok_count", korok_count);
 
     closePopup(u_popup);
 
