@@ -104,7 +104,7 @@ export function getCookie(c_name){
                 c_end = document.cookie.length;
             }
             // Check that the cookie is not an empty string
-            if(c_start + 1 < c_end) {
+            if(c_start < c_end) {
                 return decodeURI(document.cookie.substring(c_start, c_end));
             }
         }
