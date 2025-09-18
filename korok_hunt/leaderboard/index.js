@@ -106,7 +106,7 @@ function displayUserScores(user_scores) {
     }
 
     let leaderboard = document.getElementById("leaderboard");
-    const leaderboard_element = leaderboard.getElementsByClassName("leaderboard_item")[0];
+    const leaderboard_element = leaderboard.getElementsByClassName("board_item")[0];
 
     for (let i = 0; i < user_scores.length; i++) {
         // Copy leaderboard element and add values to it

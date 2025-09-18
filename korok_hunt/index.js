@@ -1,4 +1,4 @@
-import { createUser, findKorok, setKorok } from "./js/link.js";
+import { createUser, findKorok, setKorok, getCookie, setCookie, deleteCookie } from "./js/link.js";
 
 const MAX_KOROK_NUMBER = 10;
 
@@ -58,7 +58,7 @@ async function checkScannedKorok() {
             foundInvalidKorok();
             return;
         }
-        
+
         // Prompt for an email and username if the user is unknown and attempt to find korok again
         email = await requestEmail();
         find_korok_result = await findKorok(email, scanned_korok_id);
@@ -81,7 +81,7 @@ async function foundValidKorok(find_korok_result) {
     if (find_korok_result.already_found) {
         korok_count = getCookie("korok_count");
         // If the cookie doesn't exist for some reason, check if the count was returned
-        if (korok_count == "")
+        if (korok_count == null)
             korok_count = find_korok_result.new_korok_count;
         if (korok_count == null)
             korok_count = "???";
@@ -123,7 +123,7 @@ function foundInvalidKorok(){
 async function getEmail() {
     // Check if cookie exists
     let email = getCookie("email");
-    if (email == "") {
+    if (email == null) {
         // Request username popup underneath
         email = await requestEmail();
     }
@@ -251,7 +251,7 @@ async function setNewKorok(position) {
 
     // Prompt for the admin password, if it has not been cached
     let admin_password = getCookie("admin_password");
-    if (admin_password == "") {
+    if (admin_password == null) {
         admin_password = prompt("Administrator Password:");
         
         if (admin_password == null) {
@@ -373,9 +373,9 @@ function displayInfoPopup() {
 function displayUserInfo() {
     const username = getCookie("username");
 
-    if (username != "") {
+    if (username != null) {
         let korok_count = getCookie("korok_count");
-        if(korok_count == "")
+        if(korok_count == null)
             korok_count = 0;
         
         // Get display
@@ -490,49 +490,4 @@ function fadeOut( elem, ms ) {
         elem.style.display = "none";
         elem.style.visibility = "hidden";
     }
-}
-
-
-/* Utility */
-
-/**
- * Retrieves the cookie with the given `c_name`
- */
-function getCookie(c_name){
-    if (document.cookie.length > 0) {
-        var c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1;
-            var c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) {
-                c_end = document.cookie.length;
-            }
-            return decodeURI(document.cookie.substring(c_start, c_end));
-        }
-    }
-    return "";
-}
-
-/**
- * Sets the cookie with the given `c_name` with the given `data`
- */
-function setCookie(c_name, data){
-    // Build the expiration date string:
-    var expiration_date = new Date();
-    var cookie_string = '';
-    expiration_date.setFullYear(expiration_date.getFullYear() + 1);
-    // Build the set-cookie string:
-    cookie_string = c_name + "=" + data + "; expires=" + expiration_date.toUTCString();
-    // Create or update the cookie:
-    document.cookie = cookie_string;
-}
-
-/**
- * Deletes the cookie with the given `c_name`
- */
-function deleteCookie(c_name){
-    if( getCookie(c_name) != "") {
-        document.cookie = c_name + "=" +
-          ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-      }
 }

@@ -2,17 +2,17 @@
 
 <html id="html" lang="en">
 <head>
-    <title> RPI Korok Hunt - Leaderboard </title>
-    <meta name="description" content="View the leaderboard for the RPI Korok Hunt!"/>
+    <title> RPI Korok Hunt - Koroks </title>
+    <meta name="description" content="View the Koroks that have been found in the RPI Korok Hunt!"/>
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="/korok_hunt/css/main.css">
     <link rel="icon" type="image/x-icon" href="/korok_hunt/favicon.ico">
     <meta name="theme-color" content="#E28C3F"/>
 
-    <link rel="canonical" href="https://joshschnauber.com/korok_hunt/leaderboard/" />
-    <meta property="og:title" content="The RPI Korok Hunt Leaderboard" />
-    <meta property="og:description" content="View the leaderboard for the RPI Korok Hunt!"/>
+    <link rel="canonical" href="https://joshschnauber.com/korok_hunt/koroks/" />
+    <meta property="og:title" content="The RPI Korok Hunt Koroks Board" />
+    <meta property="og:description" content="View the Koroks that have been found in the RPI Korok Hunt!"/>
     <meta property="og:image" content="/korok_hunt/img/korok_hunt_logo.png"/>
 </head>
 
@@ -26,17 +26,12 @@
         </div>
 
         <div class="l_container">
-        <div id="leaderboard" class="board_frame">
+        <div id="koroks_board" class="board_frame">
 
-            <div class="board_item leaderboard_item">
-                <div class="leaderboard_rank_item">
-                    <rank>1. </rank>
-                    <username>??? </username>
-                    <count>??? </count>
-                </div>
-                <div class="leaderboard_other_item">
-                    <last_active>Last Korok: ???</last_active>
-                </div>
+            <div class="board_item korok_board_item">
+                <korok_number> #??? </korok_number>
+                <img src="/korok_hunt/img/korok_seed_icon.png">
+                <times_scanned>Found ??? times</times_scanned>
             </div>
 
         </div>
@@ -53,7 +48,7 @@
     </div>
     <br>
 
-    <script type="module" src="/korok_hunt/leaderboard/index.js"></script>
+    <script type="module" src="/korok_hunt/koroks/index.js"></script>
 </body>
 </html>
 
