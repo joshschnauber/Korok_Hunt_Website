@@ -58,7 +58,7 @@
     margin-right: auto;
     padding-top: 2vw;
     padding-bottom: 4vw;
-    
+
 }
 
 .img_container img {
@@ -118,6 +118,15 @@
     width: 40%;
 }
 
+.l_container>.map_frame {
+    border: min(1.2vh, 1.44vw) solid rgb(226, 144, 72);
+    border-radius: min(4vh, 4.8vw);
+    box-shadow: 0 0 20px rgb(142, 118, 86);
+
+    width: 100%;
+    aspect-ratio: 1.65;
+    overflow: hidden;
+}
 
 /* Phone Display*/
 @media all and (max-aspect-ratio:1) {
@@ -168,16 +177,10 @@
     .frontpage_button img {
         width: 90%;
     }
-}
 
-.l_container>.map_frame {
-    border: min(1.2vh, 1.44vw) solid rgb(226, 144, 72);
-    border-radius: min(4vh, 4.8vw);
-    box-shadow: 0 0 20px rgb(142, 118, 86);
-
-    width: 100%;
-    aspect-ratio: 1.65;
-    overflow: hidden;
+    .l_container>.map_frame {
+        aspect-ratio: 1.4;
+    }
 }
 
 
@@ -514,7 +517,7 @@
 
 
 /* Board styling */
-.l_container > .board_frame {
+.l_container>.board_frame {
     border: min(1.2vh, 1.44vw) solid rgb(226, 144, 72);
     border-radius: min(4vh, 4.8vw);
     box-shadow: 0 0 20px rgb(142, 118, 86);
@@ -553,7 +556,7 @@
     flex-direction: column;
 }
 
-.leaderboard_item > .leaderboard_rank_item {
+.leaderboard_item>.leaderboard_rank_item {
     display: flex;
     flex-direction: row;
 
@@ -563,10 +566,12 @@
     font-size: 2vw;
     line-height: 1.25em;
 }
+
 .leaderboard_item rank {
     padding-left: 0.5vw;
     font-family: Hylia Serif Beta;
 }
+
 .leaderboard_item username {
     padding-left: 1vw;
     padding-right: 2vw;
@@ -574,19 +579,22 @@
     text-wrap: wrap;
     word-wrap: break-word;
 }
+
 .leaderboard_item count {
     padding-right: 0.5vw;
     margin-left: auto;
     width: auto;
     text-wrap: nowrap;
 }
-.leaderboard_item > .leaderboard_other_item {
+
+.leaderboard_item>.leaderboard_other_item {
     font-family: Calamity Sans;
     color: rgb(133, 98, 29);
     text-shadow: none;
     font-size: 1.2vw;
     line-height: 1.25em;
 }
+
 .leaderboard_item last_active {
     padding-left: 2em;
 }
@@ -598,11 +606,13 @@
     font-size: 2vw;
     line-height: 1.25em;
 }
-.korok_board_item > korok_number {
+
+.korok_board_item>korok_number {
     padding-left: 0.5vw;
     font-family: Hylia Serif Beta;
 }
-.korok_board_item > img {
+
+.korok_board_item>img {
     padding-left: 2vw;
 
     height: 1.25em;
@@ -610,7 +620,8 @@
     margin-bottom: auto;
     visibility: hidden;
 }
-.korok_board_item > times_scanned {
+
+.korok_board_item>times_scanned {
     padding-right: 0.5vw;
     margin-left: auto;
     width: auto;
@@ -619,14 +630,15 @@
 
 /* Phone Display */
 @media all and (max-aspect-ratio:1) {
-    .l_container > .board_frame {
+    .l_container>.board_frame {
         height: 60vh;
     }
 
-    .leaderboard_item > .leaderboard_rank_item {
+    .leaderboard_item>.leaderboard_rank_item {
         font-size: 5vw;
     }
-    .leaderboard_item > .leaderboard_other_item {
+
+    .leaderboard_item>.leaderboard_other_item {
         font-size: 3vw;
     }
 
