@@ -223,7 +223,12 @@ function setNewKorokAttempt() {
 
     // First check location
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setNewKorok);
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        };
+        navigator.geolocation.getCurrentPosition(setNewKorok, handleGetPositionFailure, options);
     } else {
         console.error("Geolocation is not supported by this browser");
         alert("Geolocation is not supported by this browser");
@@ -271,6 +276,14 @@ async function setNewKorok(position) {
         alert("Korok not added :(");
         deleteCookie("admin_password");
     }
+}
+
+/**
+ * Handles when getCurrentPosition fails to get a location
+ */
+async function handleGetPositionFailure(err) {
+    console.error("Geolocation could not be accessed: " + err.message);
+    alert("Geolocation could not be accessed: " + err.message)
 }
 
 
