@@ -16,6 +16,17 @@ export async function createUser(email, username){
 
 // Increments score of player and returns the new korok count, as well as the user's ranking and the korok number
 export async function findKorok(email, korok_id){
+    /* 
+    // Testing
+    return {
+        "already_found": false,
+        "new_korok_count": 1, 
+        "korok_number": 1,
+        "korok_type": 1,
+        "prev_scan_count": 1,
+    };
+    //*/
+
     // Send username and korok id to server
     const query_string = "https://8n8fsfczsl.execute-api.us-east-2.amazonaws.com/find_korok" 
         + "?email=" + email

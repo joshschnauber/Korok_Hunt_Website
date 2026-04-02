@@ -296,10 +296,23 @@ async function handleGetPositionFailure(err) {
 function displayKorokFoundPopup(korok_num, korok_type, korok_count, already_found, prev_found_count) {
     const kf_popup = document.getElementById("kf_popup");
 
-    openPopup(kf_popup);
-
+    // Play sound and open popup
+    var sound_promise;
+    if (!already_found) {
+        sound_promise = playSound("korok_found.mp3")
+    } else {
+        sound_promise = playSound("korok_already_found.mp3")
+    }
+    sound_promise.finally(() => {
+        openPopup(kf_popup);
+    })
+    
     //Add action to button that closes the popup
-    kf_popup.getElementsByTagName("button")[0].onclick = function() { closePopup(kf_popup) };
+    kf_popup.getElementsByTagName("button")[0].onclick = function() { 
+        playSound("korok_close.mp3").finally(() => {
+            closePopup(kf_popup);
+        })
+    };
     
     //Load correct Korok image
     document.getElementById('korok_img').src = "/korok_hunt/img/koroks/k_" + korok_type + ".png";
@@ -503,4 +516,44 @@ function fadeOut( elem, ms ) {
         elem.style.display = "none";
         elem.style.visibility = "hidden";
     }
+}
+
+
+/* Audio */
+
+// There is still an issue with audio not playing consistently at the same time
+// the promise resolves, despite best efforts.
+var audio = null
+function playSound(audio_name) {
+    // This isn't supported in many places
+    if (navigator.getAutoplayPolicy("mediaelement") != "allowed") {
+        return Promise.resolve()
+    }
+
+    if (audio != null && !audio.ended ) {
+        audio.pause()
+        audio.currentTime = 0
+    }
+    audio = new Audio()
+    
+    var audio_loaded = new Promise( (resolve) => {
+        audio.addEventListener('canplaythrough', (event) => resolve(event), {once: true});
+        audio.addEventListener('error', (e) => resolve(e));
+
+        audio.src = "/korok_hunt/audio/" + audio_name
+        audio.load()
+    })
+
+    var audio_playing = new Promise( async (resolve) => {
+        await audio_loaded
+
+        try {
+            await audio.play()
+        } catch(e) {
+            console.error("Sound could not be played: " + e);
+        }
+        resolve("Done")
+    })
+    
+    return audio_playing
 }
